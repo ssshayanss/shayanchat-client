@@ -1,0 +1,38 @@
+.menu-bar {
+    height: 100%;
+    width: 75px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff !important;
+}
+
+.menu-bar .brand {
+    display: inherit;
+    align-items: center;
+    font-family: 'Grand Hotel', cursive;
+    writing-mode: tb-rl;
+    font-weight: bolder;
+    padding: 1rem; 
+}
+
+.menu-bar .icons-container {
+    display: inherit;
+    flex-direction: inherit;
+    justify-content: inherit;
+    height: 180px;
+}
+
+.menu-bar .icons-container .icon {
+    display: inherit;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: x-large;
+    cursor: pointer;
+}
+
+.menu-bar .icons-container .active {
+    background-color: #f4f4ff !important;
+    color: #7269ef !important;
+}
