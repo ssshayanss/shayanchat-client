@@ -1,4 +1,4 @@
-import { SEND_REQUEST, REQUEST_SUCCESS, REQUEST_FAILURE, RESET_ROOM } from './types';
+import { SEND_REQUEST, REQUEST_SUCCESS, REQUEST_FAILURE, RESET_ROOM, UPDATE_ROOM } from './types';
 
 const sendRequest = () => {
     return { type: SEND_REQUEST };
@@ -24,4 +24,8 @@ export const getRoom = (socket, id) => {
             else dispatch(requestFailure(error));
         });
     }
+};
+
+export const updateRoom = room => {
+    return { type: UPDATE_ROOM, payload: room };
 };

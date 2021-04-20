@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import MyForm from '../form';
 import { validateEditGroupReq, makeToast } from '../../services';
-import { setShowModal, setLoadingForm, getRooms, getRoom } from '../../redux';
+import { setShowModal, setLoadingForm } from '../../redux';
 
 const EditGroup = () => {
     
@@ -34,8 +34,6 @@ const EditGroup = () => {
             socket.emit('edit room', data, ({ success, message }) => {
                 if(!success) makeToast('error', message);
                 else {
-                    dispatch(getRoom(socket, room.id));
-                    dispatch(getRooms(socket));
                     makeToast('success', message);
                     dispatch(setShowModal(false));
                 }

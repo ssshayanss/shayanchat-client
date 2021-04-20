@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FaTimes } from 'react-icons/fa';
 import { Loading } from '../';
 import { getMessages, setSendMessageType, addNewMessage, changeMessage, removeMessage } from '../../redux';
-import Message from './message';
+import Messages from './messages';
 
 const ChatContentBody = () => {
     
@@ -50,9 +50,9 @@ const ChatContentBody = () => {
                     :
                         <Fragment>
                             {
-                                messages.data &&
-                                messages.data.map(message => {
-                                    return <Message key={message.id} message={message} />
+                                messages.data && 
+                                Object.keys(messages.data).map((date, index) => {
+                                    return <Messages key={index} date={date} messages={messages.data[date]} />
                                 })
                             }
                             {
@@ -61,7 +61,7 @@ const ChatContentBody = () => {
                                     <FaTimes style={{ cursor: "pointer" }} onClick={() => dispatch(setSendMessageType(0))} />
                                     <span className="edit-box-text text-muted">{editMessageText}</span>
                                 </div>
-                            }
+                            } 
                         </Fragment>    
             }
         </div>

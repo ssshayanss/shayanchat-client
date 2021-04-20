@@ -47,7 +47,6 @@
     width: 60px;
     height: 60px;
     border-radius: 30px;
-    margin-left: 1rem;
 }
 
 .chat-content-container .body .message-container .message-text {
@@ -151,4 +150,15 @@
 	max-width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.date-span {
+    font-size: x-small;
+    background-color: rgba(0,0,0,0.1);
+    padding: 0.5rem;
+    border-radius: 1rem;
+}
+
+.dir-ltr {
+    direction: ltr;
 }

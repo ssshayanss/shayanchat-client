@@ -1,4 +1,4 @@
-import { SEND_REQUEST, REQUEST_SUCCESS, REQUEST_FAILURE } from './types';
+import { SEND_REQUEST, REQUEST_SUCCESS, REQUEST_FAILURE, UPDATE_ROOMS } from './types';
 
 const sendRequest = () => {
     return { type: SEND_REQUEST };
@@ -21,4 +21,8 @@ export const getRooms = (socket, search) => {
             else dispatch(requestFailure(error));
         });
     }
+};
+
+export const updateRooms = room => {
+    return { type: UPDATE_ROOMS, payload: room };
 };

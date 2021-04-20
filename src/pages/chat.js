@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 
 import { MenuBar, ChatList, Profile, ChatContent, Loading } from '../components';
 import { verifyUser } from '../services';
-import { setLoadingPage, setSocket, setUserData, setInnerWidth, setShowChats } from '../redux';
+import { setLoadingPage, setSocket, setUserData, setInnerWidth, setShowChats, updateRoom, updateRooms } from '../redux';
 
 export const ChatPage = ({ history }) => {
 
@@ -33,11 +33,11 @@ export const ChatPage = ({ history }) => {
                 else {
                     dispatch(setUserData(user));
                     if(!socket) dispatch(setSocket(io({query: {token: localStorage.getItem('SCA_TOKEN')}})));
+                    setTimeout(() => {
+                        dispatch(setLoadingPage(false));
+                    }, 1000);
+                    window.addEventListener('resize', handleWindowSize);
                 }
-                setTimeout(() => {
-                    dispatch(setLoadingPage(false));
-                }, 1000);
-                window.addEventListener('resize', handleWindowSize);
             });
 
         return () => {
@@ -46,6 +46,19 @@ export const ChatPage = ({ history }) => {
         }
         // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        if(socket) {
+            socket.on('change room data', ({ room }) => {
+                dispatch(updateRoom(room));
+                dispatch(updateRooms(room));
+            });
+        }
+        
+        return () => {
+            if(socket) socket.off('change room data');
+        };
+    }, [socket]);
 
     return (
         <div className="d-flex h-100">
