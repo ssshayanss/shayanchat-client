@@ -1,7 +1,6 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { Spinner } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import { getRooms } from '../../redux';
+import { useSelector } from 'react-redux';
 import SearchBox from '../searchBox';
 
 import './chatList.css';
@@ -10,17 +9,9 @@ import ChatItem from './chatItem';
 
 export const ChatList = () => {
 
-    const { socket, rooms, currentRoom } = useSelector(state => {
-        return { socket: state.setting.socket, rooms: state.rooms, currentRoom: state.room.data };
+    const { rooms, currentRoom } = useSelector(state => {
+        return { rooms: state.rooms, currentRoom: state.room.data };
     });
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if(socket) {
-            dispatch(getRooms(socket));
-        }
-        // eslint-disable-next-line
-    }, [socket]);
 
     return (
         <Fragment>

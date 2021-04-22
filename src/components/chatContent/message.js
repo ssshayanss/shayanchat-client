@@ -27,13 +27,13 @@ const Message = ({ message }) => {
     };
 
     return (
-        <div className={ message.isOwner ? "message-container" : "message-container dir-ltr"}>
+        <div className="message-container">
             <img 
-                className={ message.isOwner ? "picture ml-2" : "picture mr-2"} 
+                className="picture ml-2" 
                 src={ message.sender.profilePicture ? `${ENDPOINT}/profilePictures/${message.sender.profilePicture}` : "/images/user.png"} 
                 alt={ message.sender.name } 
             />
-            <div className="message-text">
+            <div className={ message.isOwner ? "message-text me" : "message-text you" }>
                 <span className="name">{ message.sender.name }</span>
                 <span className="message">{message.text}</span>
                 <span className="time"><FaRegClock /> {message.date.split('-')[1]}</span>

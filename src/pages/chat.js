@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 
 import { MenuBar, ChatList, Profile, ChatContent, Loading } from '../components';
 import { verifyUser } from '../services';
-import { setLoadingPage, setSocket, setUserData, setInnerWidth, setShowChats, updateRoom, updateRooms } from '../redux';
+import { setLoadingPage, setSocket, setUserData, setInnerWidth, setShowChats, updateRoom, updateRooms, getRooms } from '../redux';
 
 export const ChatPage = ({ history }) => {
 
@@ -49,15 +49,18 @@ export const ChatPage = ({ history }) => {
 
     useEffect(() => {
         if(socket) {
+            dispatch(getRooms(socket));
+            socket.emit('join to rooms');
             socket.on('change room data', ({ room }) => {
                 dispatch(updateRoom(room));
                 dispatch(updateRooms(room));
-            });
+            }); 
         }
         
         return () => {
             if(socket) socket.off('change room data');
         };
+        // eslint-disable-next-line
     }, [socket]);
 
     return (

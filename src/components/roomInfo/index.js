@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
 import { FaEllipsisV, FaRegEdit, FaRegTrashAlt, FaSignOutAlt } from 'react-icons/fa';
-import { getRoomMembers, setLoadingPage } from '../../redux';
+import { getRoomMembers, removeRoom, setLoadingPage } from '../../redux';
 import { ENDPOINT, makeToast } from '../../services';
 
 import './roomInfo.css';
 import Member from './member';
-import { setModalContent, setShowModal, getRooms, resetRoom } from '../../redux';
+import { setModalContent, setShowModal, resetRoom } from '../../redux';
 
 const RoomInfo = () => {
 
@@ -32,7 +32,7 @@ const RoomInfo = () => {
             if(!success) makeToast('error', message);
             else {
                 makeToast("success", message);
-                dispatch(getRooms(socket));
+                dispatch(removeRoom(room.data));
                 dispatch(setShowModal(false));
                 dispatch(resetRoom());
             }
@@ -47,8 +47,8 @@ const RoomInfo = () => {
             socket.emit('delete room', ({ id: room.data.id }), ({ success, message }) => {
                 if(!success) makeToast('error', message);
                 else {
+                    dispatch(removeRoom(room.data));
                     dispatch(resetRoom({}));
-                    dispatch(getRooms(socket));
                     makeToast('success', message);
                 }
                 dispatch(setLoadingPage(false));

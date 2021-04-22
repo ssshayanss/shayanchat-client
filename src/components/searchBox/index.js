@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
-import { getRooms } from '../../redux';
+import { getRooms, searchRooms } from '../../redux';
 
 import './searchBox.css';
 
@@ -13,7 +13,8 @@ const SearchBox = () => {
     const searchRef = useRef('');
 
     const search = () => {
-        dispatch(getRooms(socket, { search: searchRef.current.value.trim() }));
+        if(searchRef.current.value.trim() === '') dispatch(getRooms(socket));
+        else dispatch(searchRooms(socket, searchRef.current.value.trim()));
     };
     
     return (

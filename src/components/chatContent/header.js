@@ -24,7 +24,7 @@ const ChatContentHeader = () => {
                     src={ room.roomPicture ? `${ENDPOINT}/roomPictures/${room.roomPicture}` : '/images/room.jpg'}
                     alt={room.name}
                 />
-                <span className="font-weight-bold">{room.name}</span>
+                <span className="room-name">{room.name}</span>
             </div>
             <FaEllipsisV onClick={showRoomInfo} className="ellipsis-icon" />
         </div>

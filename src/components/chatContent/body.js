@@ -8,14 +8,28 @@ import Messages from './messages';
 const ChatContentBody = () => {
     
     const chatBodyRef = useRef();
-    const { socket, user, messages, room, sendMessageType, editMessageText } = useSelector(state => {
-        return { socket: state.setting.socket, user: state.user, messages: state.messages, room: state.room, sendMessageType: state.setting.sendMessageType, editMessageText: state.setting.editMessageText };
+    const { socket, messages, user, room, sendMessageType, editMessageText } = useSelector(state => {
+        return { 
+            socket: state.setting.socket,
+            messages: state.messages, 
+            user: state.user,
+            room: state.room, 
+            sendMessageType: state.setting.sendMessageType, 
+            editMessageText: state.setting.editMessageText 
+        };
     });
     const dispatch = useDispatch();
 
     useEffect(() => {
+        if(socket) dispatch(getMessages(socket, room.data.id));  
+        return () => {
+            dispatch(setSendMessageType(0));
+        }
+        // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
         if(socket) {
-            dispatch(getMessages(socket, room.data.id));  
             socket.on('new message', async ({ roomId, newMessage, updateMessage, deleteMessage }) => {
                 try {
                     if(roomId.toString() === room.data.id.toString()) {
@@ -29,14 +43,13 @@ const ChatContentBody = () => {
                         } else if(deleteMessage) dispatch(removeMessage(deleteMessage));
                     }
                 } catch(error) {}
-            });  
-        }  
+            });
+        }
         return () => {
-            dispatch(setSendMessageType(0));
-            socket.off('new message');
+            if(socket) socket.off('new message');
         }
         // eslint-disable-next-line
-    }, []);
+    }, [socket]);
 
     useEffect(() => {
         chatBodyRef.current.scroll(0, chatBodyRef.current.scrollHeight);

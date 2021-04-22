@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import MyForm from '../form';
 import { validateCreateRoomReq, makeToast } from '../../services';
-import { setLoadingForm, setShowModal, getRooms } from '../../redux';
+import { setLoadingForm, setShowModal, updateRooms } from '../../redux';
 
 const CreateNewRoom = () => {
     
@@ -28,10 +28,10 @@ const CreateNewRoom = () => {
         if(!success) makeToast('error', message);
         else {
             dispatch(setLoadingForm(true));
-            socket.emit('create new room', data, ({ success, message }) => {
+            socket.emit('create new room', data, ({ success, message, roomData }) => {
                 if(success) {
                     dispatch(setShowModal(false));
-                    dispatch(getRooms(socket));
+                    dispatch(updateRooms(roomData));
                     makeToast('success', message);
                 }
                 else makeToast('error', message);
