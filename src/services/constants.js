@@ -1,4 +1,4 @@
-export const ENDPOINT = 'https://shayanchat.herokuapp.com/';
+export const ENDPOINT = 'https://shayanchat.herokuapp.com';
 // export const ENDPOINT = 'http://localhost:3000/';
 export const namePattern = /^[A-Za-z\u0600-\u06FF\s]+$/;
 export const emailPattern =/^\S+@\S+.\S+$/;

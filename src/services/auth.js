@@ -24,3 +24,5 @@ export const verifyUser = async () => {
         return { success: false };
     }
 };
+
+export const sendResetLink = data => axios.post('/api/auth/reset-password', data);

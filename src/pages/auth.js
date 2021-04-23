@@ -1,14 +1,14 @@
 import { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { SigninForm, SignupForm, Loading } from '../components';
+import { SigninForm, SignupForm, ResetPasswordForm, Loading } from '../components';
 import { signin, signup, verifyUser, makeToast } from '../services';
 import { setLoadingPage, setLoadingForm, setIsRegistered } from '../redux';
 
 export const AuthPage = ({ history }) => {
     
-    const { loadingPage, isRegister } = useSelector(state => {
-        return { loadingPage: state.setting.loadingPage, isRegister: state.setting.isRegister };
+    const { loadingPage, isRegister, resetPassword } = useSelector(state => {
+        return { loadingPage: state.setting.loadingPage, isRegister: state.setting.isRegister, resetPassword: state.setting.resetPassword };
     });
     const dispatch = useDispatch();
 
@@ -56,11 +56,13 @@ export const AuthPage = ({ history }) => {
                     :
                         <Fragment>
                             <h1 className="appBrand mb-3">ShayanChat</h1>
-                            <h3 className="mb-3 pb-3">{ isRegister ? 'ورود' : 'عضویت' }</h3>
+                            <h3 className="mb-3 pb-3">{ resetPassword ? 'بازیابی رمزعبور' : isRegister ? 'ورود' : 'عضویت' }</h3>
                             {
-                                isRegister 
-                                    ? <SigninForm submitHandler={submitHandler} />
-                                    : <SignupForm submitHandler={submitHandler} />
+                                resetPassword
+                                    ? <ResetPasswordForm />
+                                    : isRegister 
+                                        ? <SigninForm submitHandler={submitHandler} />
+                                        : <SignupForm submitHandler={submitHandler} />
                             }
                         </Fragment>
             }

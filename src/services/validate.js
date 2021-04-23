@@ -35,6 +35,13 @@ export const validateSigninReq = data => {
     else return { success: true }
 };
 
+export const validateResetPasswordReq = data => {
+    if(data.email === '') return { success: false, message: 'ایمیل خود را وارد کنید' };
+    else if(!emailPattern.test(data.email)) 
+        return { success: false, message: 'لطفا یک ایمیل معتبر وارد کنید' };
+    else return { success: true };
+};
+
 export const validateCreateRoomReq = data => {
     if(data.roomName === '') return { success: false, message: 'نام گروه را وارد کنید' };
     

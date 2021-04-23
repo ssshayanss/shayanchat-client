@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 import { validateSigninReq, makeToast } from '../../services';
-import { setIsRegistered } from '../../redux';
+import { setIsRegistered, setResetPassword } from '../../redux';
 import MyForm from '../form';
 
 export const SigninForm = ({ submitHandler }) => {
@@ -54,7 +54,7 @@ export const SigninForm = ({ submitHandler }) => {
                     submitHandler={signin}
                 />
                 <div className="formActions">
-                    <span className="formAction ml-1">بازیابی رمزعبور</span>
+                    <span className="formAction ml-1" onClick={() => dispatch(setResetPassword(true))}>بازیابی رمزعبور</span>
                     /
                     <span className="formAction mr-1" onClick={() => dispatch(setIsRegistered(false))}>ثبت‌نام</span>
                 </div>
